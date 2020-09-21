@@ -1,0 +1,12 @@
+const { Sequelize, Op} = require('sequelize');
+const models = require('../models/models.js');
+const bills = models.bills();
+const clients = models.clients();
+const contracts = models.contracts();
+const creditContracts = models.creditContracts();
+const creditDrivers = models.creditDrivers();
+const drivers = models.drivers();
+const gasStations = models.gasStations();
+const products = models.products();
+const roles = models.roles();
+const users = models.users();

@@ -1,0 +1,136 @@
+extends ./layouts/common
+block style
+    include ../css/common.css
+block content
+
+    button.btn.btn-success.mb-3(type='button', data-toggle='modal', data-target='#modal-form', style='float:right;') 
+        h5 Start creating subcontract
+
+    #modal-form.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+            form.modal-content(action="/subcontracts", method="POST")
+                .modal-header
+                    h5#exampleModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                .modal-body
+                    table.table.table-borderless
+                        tr
+                            td Client
+                            td.form-group
+                                select#clientID.form-control(name='clientID')
+                                    each client_ in clients
+                                        option(value=client_.clientID)= client_.name
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button.btn.btn-success(type='submit',name='create', value='true') Continue
+
+
+    if create
+        - var clientObj = JSON.parse(client)
+        - clientObj = clientObj[0]
+
+        #modal-subcontract.modal.fade.show(tabindex='-1', aria-labelledby='exampleModalLabel', style='display: block;', aria-modal='true', role='dialog')
+            .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+                form.modal-content(action="/subcontracts", method="POST")
+                    .modal-header
+                        h5#exampleModalLabel.modal-title Modal title
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') &times;
+                    .modal-body
+                        div(style="display: none;")
+                            input.form-control(type="text", name ="clientID", readonly, value= clientObj.clientID)
+                        table.table.table-borderless
+                            tr
+                                td Client
+                                td
+                                    input.form-control(type="text", readonly, value=clientObj.name)
+                            tr
+                                td Gross contract
+                                td.form-group
+                                    select#grossContractID.form-control(name='grossContractID')
+                                        each grossContract in clientObj.grossContracts
+                                            option(value=grossContract.grossContractID)= grossContract.name
+                            tr
+                                td Name
+                                td
+                                    input.form-control(type="text", name ="name")  
+                            tr
+                                td Created date
+                                td
+                                    input.form-control(type="date", name ="createdDate")
+                            tr
+                                td Start date
+                                td
+                                    input.form-control(type="date", name ="startDate")
+                            tr
+                                td Expried date
+                                td
+                                    input.form-control(type="date", name ="expiredDate")
+                            tr
+                                td DebtCeiling remain
+                                td
+                                    input#number_remain.form-control(type="number", readonly, value=clientObj.grossContracts[0].debtCeiling_remain)
+                            tr
+                                td DebtCeiling
+                                td
+                                    input#number.form-control(type="number", name ="debtCeiling", value=0, min=1000000, step=1000000, max=clientObj.grossContracts[0].debtCeiling_remain)
+                            tr
+                                td Status
+                                td.form-group
+                                    select.form-control(name='status')
+                                        option(value='active') Active
+                                        option(value='inactive') Inactive
+                    .modal-footer
+                        button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                        button.btn.btn-success(type='submit', name='submit',value='true') Create
+
+    table.table.table-striped.table-bordered.table-light
+        tr
+            th Name
+            th Gross contract
+            th Created date
+            th Start date
+            th Expried date
+            th debtCeiling
+            th Credit remain
+            th Status
+        if subcontracts.length !== 0
+            each subcontract in subcontracts
+                tr
+                    td= subcontract.name
+                    td= subcontract.grossContract.name
+                    td= subcontract.createdDate
+                    td= subcontract.startDate
+                    td= subcontract.expiredDate
+                    td= subcontract.debtCeiling
+                    td= subcontract.creditRemain
+                    td= subcontract.status
+
+
+block body_continue
+    script(type='text/javascript').
+        $(document).ready(function() {
+            console.log(!{client});
+            if(!{create}) {
+                $('body').append('<div id="close" class="modal-backdrop fade show"></div>');
+                $('body').addClass("modal-open");
+                var client = !{client}[0];
+            }
+            $('#grossContractID').on('change', function() {
+                for(grossContract of client.grossContracts) {
+                    if(grossContract.grossContractID === $('#grossContractID').val()){
+                        $('#number').attr('max',grossContract.debtCeiling_remain);
+                        $('#number_remain').val(grossContract.debtCeiling_remain);
+                    }
+                }
+                
+            })
+            $(document).on('click', "button.close, button.cancel, #close", function() {
+                $('body').removeClass("modal-open");
+                $('#modal-subcontract').remove();
+                $('#close').remove();
+                
+            });
+
+        }); 

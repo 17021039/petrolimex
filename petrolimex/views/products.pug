@@ -1,3 +1,16 @@
 extends ./layouts/common
-
+block style
+    include ../css/common.css
 block content
+
+    table.table.table-striped.table-bordered.table-light
+        tr
+            th Name
+            th Unit
+            th Price
+        if products.length !== 0
+            each product in products
+                tr
+                    td= product.name
+                    td= product.unit
+                    td= product.price

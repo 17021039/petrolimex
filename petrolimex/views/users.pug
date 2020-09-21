@@ -1,3 +1,16 @@
 extends ./layouts/common
-
+block style
+    include ../css/common.css
 block content
+
+    table.table.table-striped.table-bordered.table-light
+        tr
+            th Username
+            th Password
+            th Role
+        if users.length !== 0
+            each user in users
+                tr
+                    td= user.username
+                    td= user.password
+                    td= user.role.permission
