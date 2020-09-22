@@ -1,0 +1,22 @@
+extends ./layouts/common
+block style
+    include ../css/common.css
+block content
+
+    table.table.table-striped.table-bordered.table-light
+        tr
+            th Name
+            th Plate
+            th Subcontract
+            th Credit limit
+            th Credit remain
+        if contractDrivers.length !== 0
+            each contractDriver in contractDrivers
+                tr
+                    td= contractDriver.driver.name
+                    td= contractDriver.plate
+                    td= contractDriver.subcontract.name
+                    td= contractDriver.creditLimit
+                    td= contractDriver.creditRemain
+
+
