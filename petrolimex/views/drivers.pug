@@ -1,0 +1,28 @@
+extends ./layouts/common
+block style
+    include ../css/common.css
+block content
+
+    table.table.table-striped.table-bordered.table-light
+        tr
+            th Name
+            th Code
+            th Client
+            th ResidentId
+            th Avatar
+            th Phone
+            th Plate
+            th Address
+            th Status
+        if drivers.length !== 0
+            each driver in drivers
+                tr
+                    td= driver.name
+                    td= driver.code
+                    td= driver.client.name
+                    td= driver.residentId
+                    td= driver.avatar
+                    td= driver.plate
+                    td= driver.phone
+                    td= driver.address
+                    td= driver.status

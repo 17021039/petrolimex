@@ -1,0 +1,136 @@
+extends ./layouts/common
+block style
+    include ../css/common.css
+block content
+
+    button#start.btn.btn-success.mb-3(type='button', data-toggle='modal', data-target='#modal-contract', style='float:right;') 
+        h5 Start creating contract
+
+
+    #modal-contract.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable(style='max-width: 800px;min-width: 600px;')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                .modal-body
+                    table.table.table-borderless
+                        tr
+                            td Name
+                            td
+                                input.form-control(type="text", name ="name")
+                        tr
+                            td Code
+                            td
+                                input.form-control(type="text", name ="code")
+                        tr
+                            td Client
+                            td.form-group
+                                select#clientId.form-control(name='clientId')
+                        
+                        tr
+                            td Signed date
+                            td
+                                input.form-control(type="date", name ="signedDate")
+                        tr
+                            td Start date
+                            td
+                                input.form-control(type="date", name ="startDate")
+                        tr
+                            td Expried date
+                            td
+                                input.form-control(type="date", name ="expiredDate")
+                        tr
+                            td DebtCeiling remain
+                            td
+                                input#number_remain.form-control(type="number", readonly)
+                        tr
+                            td DebtCeiling
+                            td
+                                input#number.form-control(type="number", name ="debtCeiling", value=0, min=1000000, step=1000000)
+                        tr
+                            td Status
+                            td.form-group
+                                select.form-control(name='status')
+                                    option(value='active') Active
+                                    option(value='inactive') Inactive
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#create.btn.btn-success(type='button', data-dismiss='modal') Create
+
+    table.table.table-striped.table-bordered.table-light
+        tr
+            th Name
+            th Code
+            th Client
+            th Signed date
+            th Start date
+            th Expried date
+            th debtCeiling
+            th CreditRemain
+            th Status
+        if contracts.length !== 0
+            each contract in contracts
+                tr
+                    td= contract.name
+                    td= contract.code
+                    td= contract.client.name
+                    td= contract.signedDate
+                    td= contract.startDate
+                    td= contract.expiredDate
+                    td= contract.debtCeiling
+                    td= contract.creditRemain
+                    td= contract.status
+
+                    
+
+block body_continue
+    script(type='text/javascript').
+        $(document).ready(function() {
+            let data;
+            $('#start').click(function() {
+
+                axios.get('/getToCreateContract').then((res) => {
+                    data = res.data;
+                    for(let client of data.clients) {
+                        let str = '<option value="' + client.clientId + '">' + client.name;
+                        $('select[name=clientId]').append(str);
+                    }
+                    $('#number_remain').val(data.clients[0].debtCeiling_remain);
+                    $('#number').attr('max', data.clients[0].debtCeiling_remain);
+
+
+                })
+                
+            })
+            
+
+            $('#clientId').on('change', function() {
+                let clientId = parseInt(this.value);
+                for(client of data.clients) {
+                    if(client.clientId === clientId){
+                        $('#number').attr('max',client.debtCeiling_remain);
+                        $('#number_remain').val(client.debtCeiling_remain);
+                        break;
+                    }
+                }
+                
+            })
+            
+            $('#create').click(function() {
+                axios.post('/createContract', {
+                    name: $('input[name=name]').val(),
+                    code: $('input[name=code]').val(),
+                    clientId: $('select[name=clientId]').val(),
+                    signedDate: $('input[name=signedDate]').val(),
+                    startDate: $('input[name=startDate]').val(),
+                    expiredDate: $('input[name=expiredDate]').val(),
+                    debtCeiling: $('input[name=debtCeiling]').val(),
+                    status: $('select[name=status]').val()
+                }).then((res) => {
+                    alret(res.data.status);
+                })
+            })
+
+        });

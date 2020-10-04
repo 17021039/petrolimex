@@ -1,0 +1,16 @@
+extends ./layouts/common
+
+block content
+    h1 !{messenger}
+
+block body_continue
+    script(type='text/javascript').
+        axios.get("/getBills");
+        axios.get("/getClients");
+        axios.get("/getContracts");
+        axios.get("/getDrivers");
+        axios.get("/getGasStations");
+        axios.get("/getProducts");
+        axios.get("/getRoles");
+        axios.get("/getUsers");
+        axios.get("/getDividedContracts");
