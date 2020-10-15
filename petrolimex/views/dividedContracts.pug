@@ -1,0 +1,130 @@
+extends ./layouts/common
+block style
+    include ../css/common.css
+block content
+
+    button#start.btn.btn-success.mb-3(type='button', data-toggle='modal', data-target='#modal-form', style='float:right;') 
+        h5 Start creating divided contract
+
+    #modal-form.modal.fade(tabindex='-1', aria-labelledby='ModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#ModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') X
+                .modal-body
+                    table.table.table-borderless
+                        //- tr
+                        //-     td Client
+                        //-     td
+                        //-         select#clientId.form-control(name='clientId')
+                        tr
+                            td Contract
+                            td
+                                select#contractId.form-control(name='contractId')
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#continue.btn.btn-success(type='button', data-dismiss='modal', data-toggle='modal', data-target='#form-add') Continue
+
+
+    
+    #form-add.modal.fade(tabindex='-1', aria-labelledby='modalTitle', style='display: none;', aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable(style='max-width: 1200px;min-width: 1000px')
+            .modal-content
+                .modal-header
+                    h5#modalTitle.modal-title Modal title
+                    button.close.closed(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') X
+                .modal-body
+                    table.table.table-borderless(style='max-width: 600px; font-size: 20px;')
+                        tr
+                            td Contract:
+                            td#contract 
+                        tr
+                            td Client:
+                            td#client
+                        tr
+                            td Signed date:
+                            td#signedDate
+                        tr
+                            td Start date:
+                            td#startDate
+                        tr
+                            td Expired date:
+                            td#expiredDate
+                        tr
+                            td DebtCeiling:
+                            td#debtCeiling
+                        tr
+                            td Status:
+                            td#status
+                    
+                    hr
+                    div
+                        input.form-control(type='number', value='10000000', style='max-width: 200px;display: inline;', readonly='')
+                        button.btn.btn-primary(type='button', style='') Divided
+                    hr
+
+                    table.table.table-bordered.update
+                        tr(style='text-align: center;')
+                            th Name
+                            th Code
+                            th Credit limit
+                            th Credit remain
+                            th Max transaction
+                        
+                    hr
+                    button.btn.btn-success.w-25.mb-4(type='button', data-toggle='modal', data-target='#form-select', style='float: right;') Add
+                    table.table.table-bordered.insert
+                        tr
+                            th Name
+                            th Code
+                            th Credit limit
+                            th Max transaction
+                        
+                .modal-footer
+                    button.btn.btn-secondary.cancel(type='button', data-dismiss='modal') Close
+                    button#create.btn.btn-primary(type='button', data-dismiss='modal') Create
+
+
+    #form-select.modal.fade(tabindex='-1', aria-labelledby='modalTitle', style='display: none;', aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable(style='max-width: 1100px;min-width: 1000px;')
+            .modal-content
+                .modal-header
+                    h5#modalTitle.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') X
+                .modal-body
+                    table.table.table-bordered.add
+                        tr(style='text-align: center;')
+                            th Name
+                            th Code
+                            th(style='width: 160px;') ResidentId
+                            th(style='width: 160px;') Phone
+                            th(style='width: 160px;') Plate
+                            th(style='width: 50px;') Select
+                        
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                    button#add.btn.btn-primary(type='button', data-dismiss='modal') Add
+
+
+    table#content.table.table-striped.table-bordered.table-light
+        tr
+            th Code
+            th Driver
+            th Contract
+            th Credit limit
+            th Credit remain
+            th Max transaction
+
+
+block body_continue
+    script(src="/views/js/dividedContracts.js")
+
+
+        
+            
+        
+        

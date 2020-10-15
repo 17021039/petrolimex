@@ -1,0 +1,43 @@
+extends ./layouts/common
+
+block style
+    include ../css/common.css
+block content
+
+    //- button.btn.btn-success.mb-3(type='button', data-toggle='modal', data-target='#modal-form', style='float:right;') 
+    //-     h5 Start creating client
+
+    //- #modal-form.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+    //-     .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+    //-         form.modal-content(action="/clients", method="POST")
+    //-             .modal-header
+    //-                 h5#exampleModalLabel.modal-title Modal title
+    //-                 button.close(type='button', data-dismiss='modal', aria-label='Close')
+    //-                     span(aria-hidden='true') &times;
+    //-             .modal-body
+    //-                 table.table.table-borderless
+    //-                     tr
+    //-                         td Driver
+    //-                         td
+    //-                             input.form-control(type="text", name ="driverID")   
+    //-                     tr
+    //-                         td Plate
+    //-                         td
+    //-                             input.form-control(type="text", name ="plate")
+    //-             .modal-footer
+    //-                 button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+    //-                 button.btn.btn-success(type='submit') Create
+
+                    
+
+    table#content.table.table-striped.table-bordered.table-light
+        tr
+            th Name
+            th Code
+            th Address
+            th TaxId
+            th Max payment limit
+
+block body_continue
+    script(src="/views/js/clients.js").
+                    

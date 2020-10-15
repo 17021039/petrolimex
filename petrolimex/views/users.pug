@@ -1,0 +1,15 @@
+extends ./layouts/common
+block style
+    include ../css/common.css
+block content
+
+    table#content.table.table-striped.table-bordered.table-light
+        tr
+            th Username
+            th Password
+            th Type
+            th Role
+        
+
+block body_continue
+    script(src="/views/js/users.js").

@@ -1,0 +1,1074 @@
+{
+  "link: /getBills": {
+    "method": "POST",
+    "request": {
+      "gasStationId": 2
+    },
+    "response": {
+      "bills": [
+        {
+          "billId": 6,
+          "driverId": 2,
+          "contractId": 1,
+          "gasStationId": 2,
+          "productId": 2,
+          "quantity": 10,
+          "total": 123970,
+          "transactionDate": "2020-10-12T22:08:00.000Z",
+          "status": "active",
+          "driver": {
+            "name": "Nguyễn Văn B"
+          },
+          "contract": {
+            "name": "Hợp đồng 5 năm"
+          },
+          "gasStation": {
+            "name": "Cửa hàng Xăng dầu Số 8"
+          },
+          "product": {
+            "name": "Dầu diesel 0.05S"
+          }
+        },
+        {
+          "billId": 8,
+          "driverId": 9,
+          "contractId": 8,
+          "gasStationId": 2,
+          "productId": 1,
+          "quantity": 10,
+          "total": 149730,
+          "transactionDate": "2020-10-14T03:00:00.000Z",
+          "status": "active",
+          "driver": {
+            "name": "Lê Văn B"
+          },
+          "contract": {
+            "name": "Hợp đồng tạm 1"
+          },
+          "gasStation": {
+            "name": "Cửa hàng Xăng dầu Số 8"
+          },
+          "product": {
+            "name": "Xăng RON95-III"
+          }
+        }
+      ]
+    }
+  },
+  "link: /getProducts": {
+    "method": "POST",
+    "request": {},
+    "response": {
+      "products": [
+        {
+          "productId": 1,
+          "code": "product.1",
+          "name": "Xăng RON95-III",
+          "unit": "lít",
+          "price": 14973
+        },
+        {
+          "productId": 2,
+          "code": "product.2",
+          "name": "Dầu diesel 0.05S",
+          "unit": "lít",
+          "price": 12397
+        },
+        {
+          "productId": 3,
+          "code": "product.3",
+          "name": "Dầu hỏa",
+          "unit": "lít",
+          "price": 10279
+        },
+        {
+          "productId": 4,
+          "code": "product.4",
+          "name": "Dầu mazut 180CST 3.5S",
+          "unit": "kg",
+          "price": 11183
+        }
+      ]
+    }
+  },
+  "link: /getClients": {
+    "method": "POST",
+    "request": {},
+    "response": {
+      "clients": [
+        {
+          "clientId": 1,
+          "userId": 2,
+          "code": "client.1",
+          "name": "CÔNG TY CP TẬP ĐOÀN KIẾN VÀNG",
+          "address": "Tầng 2 số 18 Mỹ Đình, Mỹ Đình II, Nam Từ Liêm, Hà Nội",
+          "taxId": "1",
+          "max_payment_limit": 2000000000
+        },
+        {
+          "clientId": 2,
+          "userId": 3,
+          "code": "client.2",
+          "name": "Công ty TNHH Đa DV Vận Tải Thành Hưng",
+          "address": "Trung Kính, phường Trung Hoà, Cầu Giấy, Hà Nội",
+          "taxId": "2",
+          "max_payment_limit": 2500000000
+        },
+        {
+          "clientId": 3,
+          "userId": 4,
+          "code": "client.3",
+          "name": "TaxiVIP",
+          "address": "Tầng 2, số 47, ngõ 16 Hoàng Cầu, Đống Đa, Hà Nội",
+          "taxId": "3",
+          "max_payment_limit": 3000000000
+        }
+      ]
+    }
+  },
+  "link: /getContracts": {
+    "method": "POST",
+    "request": {},
+    "response": {
+      "contracts": [
+        {
+          "contractId": 1,
+          "clientId": 1,
+          "code": "contract.1",
+          "name": "Hợp đồng 5 năm",
+          "signedDate": "2020-01-10",
+          "startDate": "2020-01-20",
+          "expiredDate": "2025-01-20",
+          "debtCeiling": 1000000000,
+          "status": "active",
+          "creditRemain": 999876030,
+          "client": {
+            "name": "CÔNG TY CP TẬP ĐOÀN KIẾN VÀNG"
+          }
+        },
+        {
+          "contractId": 5,
+          "clientId": 1,
+          "code": "contract.5",
+          "name": "Hợp đồng tạm",
+          "signedDate": "2020-09-17",
+          "startDate": "2020-10-03",
+          "expiredDate": "2020-10-31",
+          "debtCeiling": 500000000,
+          "status": "active",
+          "creditRemain": 499298290,
+          "client": {
+            "name": "CÔNG TY CP TẬP ĐOÀN KIẾN VÀNG"
+          }
+        },
+        {
+          "contractId": 7,
+          "clientId": 1,
+          "code": "contract.7",
+          "name": "Hợp đồng tạm 1",
+          "signedDate": "2020-10-11",
+          "startDate": "2020-10-22",
+          "expiredDate": "2020-10-31",
+          "debtCeiling": 50000000,
+          "status": "active",
+          "creditRemain": 50000000,
+          "client": {
+            "name": "CÔNG TY CP TẬP ĐOÀN KIẾN VÀNG"
+          }
+        },
+        {
+          "contractId": 2,
+          "clientId": 2,
+          "code": "contract.2",
+          "name": "Hợp đồng 6 năm",
+          "signedDate": "2018-04-15",
+          "startDate": "2018-05-15",
+          "expiredDate": "2024-05-15",
+          "debtCeiling": 1800000000,
+          "status": "active",
+          "creditRemain": 1800000000,
+          "client": {
+            "name": "Công ty TNHH Đa DV Vận Tải Thành Hưng"
+          }
+        },
+        {
+          "contractId": 4,
+          "clientId": 2,
+          "code": "contract.4",
+          "name": "Hợp đồng tạm",
+          "signedDate": "2020-09-28",
+          "startDate": "2020-09-28",
+          "expiredDate": "2020-09-28",
+          "debtCeiling": 100000000,
+          "status": "active",
+          "creditRemain": 100000000,
+          "client": {
+            "name": "Công ty TNHH Đa DV Vận Tải Thành Hưng"
+          }
+        },
+        {
+          "contractId": 3,
+          "clientId": 3,
+          "code": "contract.3",
+          "name": "Hợp đồng 3 năm",
+          "signedDate": "2019-11-01",
+          "startDate": "2019-12-01",
+          "expiredDate": "2022-12-01",
+          "debtCeiling": 1200000000,
+          "status": "active",
+          "creditRemain": 1200000000,
+          "client": {
+            "name": "TaxiVIP"
+          }
+        },
+        {
+          "contractId": 6,
+          "clientId": 3,
+          "code": "contract.6",
+          "name": "Hợp đồng tạm",
+          "signedDate": "2020-09-12",
+          "startDate": "2020-10-04",
+          "expiredDate": "2025-10-04",
+          "debtCeiling": 800000000,
+          "status": "active",
+          "creditRemain": 800000000,
+          "client": {
+            "name": "TaxiVIP"
+          }
+        },
+        {
+          "contractId": 8,
+          "clientId": 3,
+          "code": "contract.8",
+          "name": "Hợp đồng tạm 1",
+          "signedDate": "2020-10-01",
+          "startDate": "2020-10-10",
+          "expiredDate": "2025-10-10",
+          "debtCeiling": 100000000,
+          "status": "active",
+          "creditRemain": 100000000,
+          "client": {
+            "name": "TaxiVIP"
+          }
+        }
+      ]
+    }
+  },
+  "link: /getDrivers": {
+    "method": "POST",
+    "request": {
+      "clientId": 1
+    },
+    "response": {
+      "drivers": [
+        {
+          "driverId": 1,
+          "userId": 11,
+          "clientId": 1,
+          "code": "driver.1",
+          "name": "Nguyễn Văn A",
+          "residentId": "187789890",
+          "plate": "75A-145.19",
+          "avatar": "avatar",
+          "phone": "0324532567",
+          "address": "đường Cầu Giấy, quận Cầu Giấy, Hà Nội",
+          "status": "active",
+          "client": {
+            "name": "CÔNG TY CP TẬP ĐOÀN KIẾN VÀNG"
+          }
+        },
+        {
+          "driverId": 2,
+          "userId": 12,
+          "clientId": 1,
+          "code": "driver.2",
+          "name": "Nguyễn Văn B",
+          "residentId": "187743290",
+          "plate": "29C-888.88",
+          "avatar": "avatar",
+          "phone": "0333452356",
+          "address": "đường Cầu Giấy, quận Cầu Giấy, Hà Nội",
+          "status": "active",
+          "client": {
+            "name": "CÔNG TY CP TẬP ĐOÀN KIẾN VÀNG"
+          }
+        },
+        {
+          "driverId": 3,
+          "userId": 13,
+          "clientId": 1,
+          "code": "driver.3",
+          "name": "Nguyễn Văn C",
+          "residentId": "187324890",
+          "plate": "30E-921.15",
+          "avatar": "avatar",
+          "phone": "0324362554",
+          "address": "đường Cầu Giấy, quận Cầu Giấy, Hà Nội",
+          "status": "active",
+          "client": {
+            "name": "CÔNG TY CP TẬP ĐOÀN KIẾN VÀNG"
+          }
+        }
+      ]
+    }
+  },
+  "link: /getGasStations": {
+    "method": "POST",
+    "request": {},
+    "response": {
+      "gasStations": [
+        {
+          "gasStationId": 1,
+          "userId": 5,
+          "code": "gas_station.1",
+          "name": "Cửa hàng Xăng dầu Số 20",
+          "address": "26 Ngô Quyền, Thọ Quang, Sơn Trà, Đà Nẵng, Vietnam",
+          "location": "16.098466, 108.245863",
+          "workingTime": "5:30-21:15"
+        },
+        {
+          "gasStationId": 2,
+          "userId": 6,
+          "code": "gas_station.2",
+          "name": "Cửa hàng Xăng dầu Số 8",
+          "address": "172 Quang Trung, Thạch Thang, Hải Châu, Đà Nẵng 550000, Vietnam",
+          "location": "16.073893, 108.214308",
+          "workingTime": "5:30-21:15"
+        },
+        {
+          "gasStationId": 3,
+          "userId": 7,
+          "code": "gas_station.3",
+          "name": "Cửa hàng Xăng dầu Ngô Quyền",
+          "address": "284 Ngô Quyền, An Hải Bắc, Sơn Trà, Đà Nẵng 550000, Vietnam",
+          "location": "16.085000, 108.238779",
+          "workingTime": "5:30-21:15"
+        },
+        {
+          "gasStationId": 4,
+          "userId": 8,
+          "code": "gas_station.4",
+          "name": "Cửa hàng Xăng dầu Vĩnh Phú",
+          "address": "1082 Ngô Quyền, An Hải Bắc, Sơn Trà, Đà Nẵng 550000, Vietnam",
+          "location": "16.059777, 108.234495",
+          "workingTime": "5:30-21:15"
+        },
+        {
+          "gasStationId": 5,
+          "userId": 9,
+          "code": "gas_station.5",
+          "name": "Cửa Hàng Xăng Dầu Số 15",
+          "address": "140 Nguyễn Văn Thoại, Bắc Mỹ Phú, Ngũ Hành Sơn, Đà Nẵng 550000, Vietnam",
+          "location": "16.055668, 108.244442",
+          "workingTime": "5:30-21:15"
+        },
+        {
+          "gasStationId": 6,
+          "userId": 10,
+          "code": "gas_station.6",
+          "name": "Cửa hàng xăng dầu số 9- Petrolimex",
+          "address": "81, Đường Lê Văn Hiến, Khuê Mỹ, Ngũ Hành Sơn, Đà Nẵng, Vietnam",
+          "location": "16.026670, 108.249181",
+          "workingTime": "5:30-21:15"
+        }
+      ]
+    }
+  },
+  "link: /getRoles": {
+    "method": "POST",
+    "request": {},
+    "response": {
+      "roles": [
+        {
+          "roleId": 1,
+          "permission": "admin"
+        },
+        {
+          "roleId": 2,
+          "permission": "gas station"
+        },
+        {
+          "roleId": 3,
+          "permission": "client"
+        },
+        {
+          "roleId": 4,
+          "permission": "driver"
+        }
+      ]
+    }
+  },
+  "link: /getUsers": {
+    "method": "POST",
+    "request": {},
+    "response": {
+      "users": [
+        {
+          "userId": 1,
+          "username": "admin",
+          "password": "12345678",
+          "type": "admin",
+          "roleId": 1,
+          "role": {
+            "permission": "admin"
+          }
+        },
+        {
+          "userId": 2,
+          "username": "client1",
+          "password": "12345678",
+          "type": "client",
+          "roleId": 2,
+          "role": {
+            "permission": "gas station"
+          }
+        },
+        {
+          "userId": 3,
+          "username": "client2",
+          "password": "12345678",
+          "type": "client",
+          "roleId": 2,
+          "role": {
+            "permission": "gas station"
+          }
+        },
+        {
+          "userId": 4,
+          "username": "client3",
+          "password": "12345678",
+          "type": "client",
+          "roleId": 2,
+          "role": {
+            "permission": "gas station"
+          }
+        },
+        {
+          "userId": 5,
+          "username": "gas_station1",
+          "password": "12345678",
+          "type": "gasStation",
+          "roleId": 3,
+          "role": {
+            "permission": "client"
+          }
+        },
+        {
+          "userId": 6,
+          "username": "gas_station2",
+          "password": "12345678",
+          "type": "gasStation",
+          "roleId": 3,
+          "role": {
+            "permission": "client"
+          }
+        },
+        {
+          "userId": 7,
+          "username": "gas_station3",
+          "password": "12345678",
+          "type": "gasStation",
+          "roleId": 3,
+          "role": {
+            "permission": "client"
+          }
+        },
+        {
+          "userId": 8,
+          "username": "gas_station4",
+          "password": "12345678",
+          "type": "gasStation",
+          "roleId": 3,
+          "role": {
+            "permission": "client"
+          }
+        },
+        {
+          "userId": 9,
+          "username": "gas_station5",
+          "password": "12345678",
+          "type": "gasStation",
+          "roleId": 3,
+          "role": {
+            "permission": "client"
+          }
+        },
+        {
+          "userId": 10,
+          "username": "gas_station6",
+          "password": "12345678",
+          "type": "gasStation",
+          "roleId": 3,
+          "role": {
+            "permission": "client"
+          }
+        },
+        {
+          "userId": 11,
+          "username": "driver1",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 12,
+          "username": "driver2",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 13,
+          "username": "driver3",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 14,
+          "username": "driver4",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 15,
+          "username": "driver5",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 16,
+          "username": "driver6",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 17,
+          "username": "driver7",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 18,
+          "username": "driver8",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 19,
+          "username": "driver9",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 20,
+          "username": "driver10",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 21,
+          "username": "driver11",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        },
+        {
+          "userId": 22,
+          "username": "driver12",
+          "password": "12345678",
+          "type": "driver",
+          "roleId": 4,
+          "role": {
+            "permission": "driver"
+          }
+        }
+      ]
+    }
+  },
+  "link: /getDividedContracts": {
+    "method": "POST",
+    "request": {
+      "clientId": 3
+    },
+    "response": {
+      "dividedContracts": [
+        {
+          "dividedContractId": 8,
+          "driverId": 8,
+          "contractId": 3,
+          "code": "divided_contract.8",
+          "creditLimit": 100000000,
+          "creditRemain": 100000000,
+          "max_transaction": 1000000,
+          "driver": {
+            "name": "Lê Văn A"
+          },
+          "contract": {
+            "name": "Hợp đồng 3 năm"
+          }
+        },
+        {
+          "dividedContractId": 9,
+          "driverId": 9,
+          "contractId": 3,
+          "code": "divided_contract.9",
+          "creditLimit": 100000000,
+          "creditRemain": 100000000,
+          "max_transaction": 1000000,
+          "driver": {
+            "name": "Lê Văn B"
+          },
+          "contract": {
+            "name": "Hợp đồng 3 năm"
+          }
+        },
+        {
+          "dividedContractId": 10,
+          "driverId": 10,
+          "contractId": 3,
+          "code": "divided_contract.10",
+          "creditLimit": 100000000,
+          "creditRemain": 100000000,
+          "max_transaction": 1000000,
+          "driver": {
+            "name": "Lê Văn C"
+          },
+          "contract": {
+            "name": "Hợp đồng 3 năm"
+          }
+        },
+        {
+          "dividedContractId": 11,
+          "driverId": 11,
+          "contractId": 3,
+          "code": "divided_contract.11",
+          "creditLimit": 100000000,
+          "creditRemain": 100000000,
+          "max_transaction": 1000000,
+          "driver": {
+            "name": "Lê Văn D"
+          },
+          "contract": {
+            "name": "Hợp đồng 3 năm"
+          }
+        },
+        {
+          "dividedContractId": 12,
+          "driverId": 12,
+          "contractId": 3,
+          "code": "divided_contract.12",
+          "creditLimit": 100000000,
+          "creditRemain": 100000000,
+          "max_transaction": 1000000,
+          "driver": {
+            "name": "Lê Văn E"
+          },
+          "contract": {
+            "name": "Hợp đồng 3 năm"
+          }
+        },
+        {
+          "dividedContractId": 16,
+          "driverId": 9,
+          "contractId": 8,
+          "code": "driver.9-contract.8",
+          "creditLimit": 20000000,
+          "creditRemain": 20000000,
+          "max_transaction": 1000000,
+          "driver": {
+            "name": "Lê Văn B"
+          },
+          "contract": {
+            "name": "Hợp đồng tạm 1"
+          }
+        },
+        {
+          "dividedContractId": 17,
+          "driverId": 10,
+          "contractId": 8,
+          "code": "driver.10-contract.8",
+          "creditLimit": 20000000,
+          "creditRemain": 20000000,
+          "max_transaction": 1000000,
+          "driver": {
+            "name": "Lê Văn C"
+          },
+          "contract": {
+            "name": "Hợp đồng tạm 1"
+          }
+        }
+      ]
+    }
+  },
+  "link: /getToCreateContract": {
+    "method": "GET",
+    "request": "",
+    "response": {
+      "clients": [
+        {
+          "clientId": 1,
+          "userId": 2,
+          "code": "client.1",
+          "name": "CÔNG TY CP TẬP ĐOÀN KIẾN VÀNG",
+          "address": "Tầng 2 số 18 Mỹ Đình, Mỹ Đình II, Nam Từ Liêm, Hà Nội",
+          "taxId": "1",
+          "max_payment_limit": 2000000000,
+          "debtCeiling_remain": "450000000"
+        },
+        {
+          "clientId": 2,
+          "userId": 3,
+          "code": "client.2",
+          "name": "Công ty TNHH Đa DV Vận Tải Thành Hưng",
+          "address": "Trung Kính, phường Trung Hoà, Cầu Giấy, Hà Nội",
+          "taxId": "2",
+          "max_payment_limit": 2500000000,
+          "debtCeiling_remain": "600000000"
+        },
+        {
+          "clientId": 3,
+          "userId": 4,
+          "code": "client.3",
+          "name": "TaxiVIP",
+          "address": "Tầng 2, số 47, ngõ 16 Hoàng Cầu, Đống Đa, Hà Nội",
+          "taxId": "3",
+          "max_payment_limit": 3000000000,
+          "debtCeiling_remain": "1000000000"
+        }
+      ]
+    }
+  },
+  "link: /createContract": {
+    "method": "POST",
+    "request": {
+      "name": "Hợp đồng tạm 1",
+      "code": "contract.8",
+      "clientId": "3",
+      "signedDate": "2020-10-01",
+      "startDate": "2020-10-10",
+      "expiredDate": "2025-10-10",
+      "debtCeiling": "100000000",
+      "status": "active"
+    },
+    "response": {
+      "status": "Lưu thành công"
+    }
+  },
+  "link: /getClients_Contracts": {
+    "method": "POST",
+    "request": {
+      "clientId": 3
+    },
+    "response": {
+      "clients_contracts": {
+        "clientId": 3,
+        "userId": 4,
+        "code": "client.3",
+        "name": "TaxiVIP",
+        "address": "Tầng 2, số 47, ngõ 16 Hoàng Cầu, Đống Đa, Hà Nội",
+        "taxId": "3",
+        "max_payment_limit": 3000000000,
+        "contracts": [
+          {
+            "contractId": 3,
+            "clientId": 3,
+            "code": "contract.3",
+            "name": "Hợp đồng 3 năm",
+            "signedDate": "2019-11-01",
+            "startDate": "2019-12-01",
+            "expiredDate": "2022-12-01",
+            "debtCeiling": 1200000000,
+            "status": "active"
+          },
+          {
+            "contractId": 6,
+            "clientId": 3,
+            "code": "contract.6",
+            "name": "Hợp đồng tạm",
+            "signedDate": "2020-09-12",
+            "startDate": "2020-10-04",
+            "expiredDate": "2025-10-04",
+            "debtCeiling": 800000000,
+            "status": "active"
+          },
+          {
+            "contractId": 8,
+            "clientId": 3,
+            "code": "contract.8",
+            "name": "Hợp đồng tạm 1",
+            "signedDate": "2020-10-01",
+            "startDate": "2020-10-10",
+            "expiredDate": "2025-10-10",
+            "debtCeiling": 100000000,
+            "status": "active"
+          }
+        ]
+      }
+    }
+  },
+  "link: /getToCreateDividedContract": {
+    "method": "POST",
+    "request": {
+      "clientId": 3,
+      "contractId": "8"
+    },
+    "response": {
+      "drivers": [
+        {
+          "driverId": 8,
+          "userId": 18,
+          "clientId": 3,
+          "code": "driver.8",
+          "name": "Lê Văn A",
+          "residentId": "134232414",
+          "plate": "15A-333.38",
+          "avatar": "avatar",
+          "phone": "0325654654",
+          "address": "đường Cầu Giấy, quận Cầu Giấy, Hà Nội",
+          "status": "active"
+        },
+        {
+          "driverId": 9,
+          "userId": 19,
+          "clientId": 3,
+          "code": "driver.9",
+          "name": "Lê Văn B",
+          "residentId": "184232343",
+          "plate": "30E-922.91",
+          "avatar": "avatar",
+          "phone": "0363252522",
+          "address": "đường Cầu Giấy, quận Cầu Giấy, Hà Nội",
+          "status": "active"
+        },
+        {
+          "driverId": 10,
+          "userId": 20,
+          "clientId": 3,
+          "code": "driver.10",
+          "name": "Lê Văn C",
+          "residentId": "183432441",
+          "plate": "51G-678.89",
+          "avatar": "avatar",
+          "phone": "0354435456",
+          "address": "đường Cầu Giấy, quận Cầu Giấy, Hà Nội",
+          "status": "active"
+        },
+        {
+          "driverId": 11,
+          "userId": 21,
+          "clientId": 3,
+          "code": "driver.11",
+          "name": "Lê Văn D",
+          "residentId": "187432442",
+          "plate": "51G-780.59",
+          "avatar": "avatar",
+          "phone": "0345236456",
+          "address": "đường Cầu Giấy, quận Cầu Giấy, Hà Nội",
+          "status": "active"
+        },
+        {
+          "driverId": 12,
+          "userId": 22,
+          "clientId": 3,
+          "code": "driver.12",
+          "name": "Lê Văn E",
+          "residentId": "187732412",
+          "plate": "61A-605.73",
+          "avatar": "avatar",
+          "phone": "0365435322",
+          "address": "đường Cầu Giấy, quận Cầu Giấy, Hà Nội",
+          "status": "active"
+        }
+      ],
+      "contract": {
+        "contractId": 8,
+        "clientId": 3,
+        "code": "contract.8",
+        "name": "Hợp đồng tạm 1",
+        "signedDate": "2020-10-01",
+        "startDate": "2020-10-10",
+        "expiredDate": "2025-10-10",
+        "debtCeiling": 100000000,
+        "status": "active",
+        "debtCeiling_remain": 100000000,
+        "dividedContracts": []
+      }
+    }
+  },
+  "link: /createDividedContract": {
+    "method": "POST",
+    "request": {
+      "update": [],
+      "insert": [
+        {
+          "driverId": 9,
+          "contractId": 8,
+          "code": "driver.9-contract.8",
+          "creditLimit": 20000000,
+          "creditRemain": 20000000,
+          "max_transaction": 1000000
+        },
+        {
+          "driverId": 10,
+          "contractId": 8,
+          "code": "driver.10-contract.8",
+          "creditLimit": 20000000,
+          "creditRemain": 20000000,
+          "max_transaction": 1000000
+        }
+      ]
+    },
+    "response": {
+      "status": "Lưu thành công"
+    }
+  },
+  "link: /transaction": {
+    "method": "POST",
+    "request": {
+      "driverId": "9"
+    },
+    "response": {
+      "driver": {
+        "driverId": 9,
+        "userId": 19,
+        "clientId": 3,
+        "code": "driver.9",
+        "name": "Lê Văn B",
+        "residentId": "184232343",
+        "plate": "30E-922.91",
+        "avatar": "avatar",
+        "phone": "0363252522",
+        "address": "đường Cầu Giấy, quận Cầu Giấy, Hà Nội",
+        "status": "active",
+        "dividedContracts": [
+          {
+            "dividedContractId": 9,
+            "driverId": 9,
+            "contractId": 3,
+            "code": "divided_contract.9",
+            "creditLimit": 100000000,
+            "creditRemain": 100000000,
+            "max_transaction": 1000000,
+            "contract": {
+              "contractId": 3,
+              "clientId": 3,
+              "code": "contract.3",
+              "name": "Hợp đồng 3 năm",
+              "signedDate": "2019-11-01",
+              "startDate": "2019-12-01",
+              "expiredDate": "2022-12-01",
+              "debtCeiling": 1200000000,
+              "status": "active"
+            }
+          },
+          {
+            "dividedContractId": 16,
+            "driverId": 9,
+            "contractId": 8,
+            "code": "driver.9-contract.8",
+            "creditLimit": 20000000,
+            "creditRemain": 20000000,
+            "max_transaction": 1000000,
+            "contract": {
+              "contractId": 8,
+              "clientId": 3,
+              "code": "contract.8",
+              "name": "Hợp đồng tạm 1",
+              "signedDate": "2020-10-01",
+              "startDate": "2020-10-10",
+              "expiredDate": "2025-10-10",
+              "debtCeiling": 100000000,
+              "status": "active"
+            }
+          }
+        ]
+      },
+      "products": [
+        {
+          "productId": 1,
+          "code": "product.1",
+          "name": "Xăng RON95-III",
+          "unit": "lít",
+          "price": 14973
+        },
+        {
+          "productId": 2,
+          "code": "product.2",
+          "name": "Dầu diesel 0.05S",
+          "unit": "lít",
+          "price": 12397
+        },
+        {
+          "productId": 3,
+          "code": "product.3",
+          "name": "Dầu hỏa",
+          "unit": "lít",
+          "price": 10279
+        },
+        {
+          "productId": 4,
+          "code": "product.4",
+          "name": "Dầu mazut 180CST 3.5S",
+          "unit": "kg",
+          "price": 11183
+        }
+      ]
+    }
+  },
+  "link: /createBill": {
+    "method": "POST",
+    "request": {
+      "driverId": "9",
+      "contractId": "8",
+      "gasStationId": 2,
+      "productId": "1",
+      "quantity": "10",
+      "transactionDate": "2020-10-14T10:00",
+      "status": "active"
+    },
+    "response": {
+      "status": "Lưu thành công"
+    }
+  }
+}

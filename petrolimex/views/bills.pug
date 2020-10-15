@@ -1,0 +1,94 @@
+extends ./layouts/common
+
+block style
+    include ../css/common.css
+
+block content
+
+    button.btn.btn-success.mb-3(type='button', data-toggle='modal', data-target='#modal-form', style='float:right;') 
+        h5 Start creating bill
+
+    #modal-form.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                .modal-body
+                    table.table.table-borderless
+                        tr
+                            td Driver
+                            td
+                                input#submit.form-control(type="text")   
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#continue.btn.btn-success(type='button', data-dismiss='modal', data-toggle='modal', data-target='#modal-bill') Continue
+
+
+    #modal-bill.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                .modal-body
+                    div(style="display: none;")
+                        input#driverId.form-control(type="text", name ="driverId", readonly, value='')
+                    table.table.table-borderless
+                        tr
+                            td Driver
+                            td
+                                input#name.form-control(type="text", readonly, value='')
+                        tr
+                            td Contract
+                            td.form-group
+                                select.form-control(name='contractId')
+                                    
+                        tr
+                            td Gas Station
+                            td.form-group
+                                input.form-control(type='text', name='gasStationId', readonly)
+                                   
+                        tr
+                            td Product
+                            td.form-group
+                                select.form-control(name='productId')
+                                    
+                        tr
+                            td Quantity
+                            td
+                                input.form-control(type="number", name ="quantity", value=0, min=1)
+                        tr
+                            td Transaction date
+                            td
+                                input.form-control(type="datetime-local", name ="transactionDate")
+                        tr
+                            td Status
+                            td.form-group
+                                select.form-control(name='status')
+                                    option(value='active') Active
+                                    option(value='inactive') Inactive
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#create.btn.btn-success(type='button', data-dismiss='modal') Create
+
+
+    table#content.table.table-striped.table-bordered.table-light
+        tr
+            th Driver
+            th Contract
+            th Gas station
+            th Product
+            th Quantity
+            th Total
+            th Transaction Date
+            th Status
+        
+
+    
+
+block body_continue
+    script(src="/views/js/bills.js").
+        

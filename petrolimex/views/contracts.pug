@@ -1,0 +1,79 @@
+extends ./layouts/common
+block style
+    include ../css/common.css
+block content
+
+    button#start.btn.btn-success.mb-3(type='button', data-toggle='modal', data-target='#modal-contract', style='float:right;') 
+        h5 Start creating contract
+
+
+    #modal-contract.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable(style='max-width: 800px;min-width: 600px;')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                .modal-body
+                    table.table.table-borderless
+                        tr
+                            td Name
+                            td
+                                input.form-control(type="text", name ="name")
+                        tr
+                            td Code
+                            td
+                                input.form-control(type="text", name ="code")
+                        tr
+                            td Client
+                            td.form-group
+                                select#clientId.form-control(name='clientId')
+                        
+                        tr
+                            td Signed date
+                            td
+                                input.form-control(type="date", name ="signedDate")
+                        tr
+                            td Start date
+                            td
+                                input.form-control(type="date", name ="startDate")
+                        tr
+                            td Expried date
+                            td
+                                input.form-control(type="date", name ="expiredDate")
+                        tr
+                            td DebtCeiling remain
+                            td
+                                input#number_remain.form-control(type="number", readonly)
+                        tr
+                            td DebtCeiling
+                            td
+                                input#number.form-control(type="number", name ="debtCeiling", value=0, min=1000000, step=1000000)
+                        tr
+                            td Status
+                            td.form-group
+                                select.form-control(name='status')
+                                    option(value='active') Active
+                                    option(value='inactive') Inactive
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#create.btn.btn-success(type='button', data-dismiss='modal') Create
+
+    table#content.table.table-striped.table-bordered.table-light
+        tr
+            th Name
+            th Code
+            th Client
+            th Signed date
+            th Start date
+            th Expried date
+            th debtCeiling
+            th CreditRemain
+            th Status
+        
+
+                    
+
+block body_continue
+    script(src="/views/js/contracts.js").
+        
