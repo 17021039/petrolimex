@@ -1,0 +1,61 @@
+extends ./layouts/common
+block style
+    include ../css/common.css
+block content
+
+    button#start.btn.btn-success.mb-3(type='button', data-toggle='modal', data-target='#modal-create', style='float:right;') 
+        h5 Start creating role
+
+    button#update.btn.btn-success.mr-2.mb-3(type='button', data-toggle='modal', data-target='#modal-update', style='float:right;') 
+        h5 Update role
+    
+
+    #modal-create.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable(style='max-width: 800px;min-width: 600px;')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                .modal-body
+                    table.table.table-borderless
+                        tr
+                            td Permission
+                            td
+                                input.form-control(type="text", name ="permission", aria-describedby="notification-permission", required)
+                                #notification-permission.invalid-feedback Quyền đã trùng.
+                        
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#create.btn.btn-success(type='button', data-dismiss='modal') Create
+
+    #modal-update.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable(style='max-width: 800px;min-width: 600px;')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                .modal-body
+                    div(style="display: none;")
+                        input.form-control(type="text", name ="roleId", readonly, value='')
+                    table.table.table-borderless
+                        tr
+                            td Permission
+                            td
+                                input.form-control(type="text", name ="permission", aria-describedby="notification-permission", required)
+                                #notification-permission.invalid-feedback Quyền đã trùng.
+                                    
+
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#btn-update.btn.btn-success(type='button', data-dismiss='modal') Update
+
+    table#content.table.table-striped.table-bordered.table-light
+        tr
+            th Permission
+            th(style="width: 70px;") Select
+
+
+block body_continue
+    script(src="/views/js/roles.js").
