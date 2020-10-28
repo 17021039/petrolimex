@@ -1,0 +1,41 @@
+extends ./layouts/common
+
+block style
+    include ../css/common.css
+
+block content
+    h1 !{messenger}
+
+    button#update.btn.btn-success.mr-2.mb-3(type='button', data-toggle='modal', data-target='#modal-update', style='') 
+        h5 Change password
+
+    #modal-update.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable(style='max-width: 800px;min-width: 600px;')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                .modal-body
+                    div(style="display: none;")
+                        input.form-control(type="text", name ="userId", readonly, value='')
+                    table.table.table-borderless
+                        tr
+                            td New password
+                            td
+                                input.form-control(type="password", name ="password", aria-describedby="notification-permission", required)
+                                #notification-permission.invalid-feedback Password phải khác mật khẩu cũ
+                        tr
+                            td Repeat password
+                            td
+                                input.form-control(type="password", name ="repassword", aria-describedby="notification-permission", required)
+                                #notification-permission.invalid-feedback The repeat password must be the same as the new password
+                                    
+
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#btn-update.btn.btn-success(type='button', data-dismiss='modal') Change
+block body_continue
+    script(src="/views/js/main.js").
+
+
