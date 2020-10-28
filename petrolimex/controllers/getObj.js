@@ -31,7 +31,7 @@ module.exports.getBills =  (filter = {} ) => {
             where: {
                 clientId: clientId
             },
-            order: [['transactionDate', 'DESC']],
+            order: Sequelize.literal('`contracts.bills.transactionDate` DESC'),
             include: [{model: contracts, include: [{model: bills, where: filter,
                                                     include: [{model: drivers, attributes: ['name']},
                                                                 {model: contracts, attributes: ['name']},
@@ -123,7 +123,7 @@ module.exports.getDividedContracts = (filter = {}) => {
             where: {
                 clientId: clientId
             },
-            order: [[contracts,'contractId'], Sequelize.literal('`contracts->dividedContracts->driver`.`name`')],
+            order: [[contracts,'contractId'], Sequelize.literal('`contracts.dividedContracts.driver.name`')],
             include: [{model: contracts, include: [{model: dividedContracts, where: filter, include: {model: drivers, attributes: ['name']}}]}]
         }).then(client => JSON.parse(JSON.stringify(client)))
         .then(client => client.contracts.reduce((arr, element) => {
