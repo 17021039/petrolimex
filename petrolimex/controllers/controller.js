@@ -60,10 +60,7 @@ module.exports.transaction = async (req,res) => {
     let products = await get.getProducts();
     // let gasStations = await get.getGasStations();
 
-    writeFile("/transaction", "POST", req.body, {
-        driver: driver,
-        products: products
-    });
+    writeFile("/transaction", "POST", req.body, {driver: driver, products: products});
 
     res.send({
         driver: driver,
