@@ -1,0 +1,88 @@
+extends ./layouts/common
+block style
+    include ../css/common.css
+block content
+
+    div(style='display: flex; justify-content: flex-end;flex-wrap: wrap;')
+        button#update.btn.btn-success.mr-2.mb-3(type='button', data-toggle='modal', data-target='#modal-update') 
+            h5 Update user
+        button#start.btn.btn-success.mb-3(type='button', data-toggle='modal', data-target='#modal-create') 
+            h5 Start creating user
+
+    
+    
+
+    #modal-create.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable(style='max-width: 800px;min-width: 600px;')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                .modal-body
+                    table.table.table-borderless
+                        tr
+                            td Username
+                            td
+                                input.form-control(type="text", name ="username", aria-describedby="notification", required)
+                                #notification.invalid-feedback Username đã trùng.
+                        tr
+                            td Password
+                            td
+                                input.form-control(type="password", name ="password", required)
+                        tr
+                            td Permisssion
+                            td.form-group
+                                select.form-control(name='roleId')
+                        
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#create.btn.btn-success(type='button', data-dismiss='modal') Create
+
+    #modal-update.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable(style='max-width: 800px;min-width: 600px;')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Modal title
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                .modal-body
+                    div(style="display: none;")
+                        input.form-control(type="text", name ="userId", readonly, value='')
+                    table.table.table-borderless
+                        tr
+                            td Username
+                            td
+                                input.form-control(type="text", name ="username", readonly, required)
+                        tr
+                            td Password
+                            td
+                                input.form-control(type="password", name ="password", aria-describedby="notification-password", required)
+                                #notification-password.invalid-feedback Password đã trùng password cũ.
+                        tr
+                            td Type
+                            td
+                                input.form-control(type="text", name ="type", readonly, required)
+                        tr
+                            td Permisssion
+                            td.form-group
+                                select.form-control(name='roleId')
+                                    
+
+                .modal-footer
+                    button.cancel.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#btn-update.btn.btn-success(type='button', data-dismiss='modal') Update
+
+
+    table#content.table.table-striped.table-bordered
+        thead.thead-dark(style="text-align: center;")
+            tr
+                th Username
+                th Password
+                th Type
+                th Role
+                th(style="width: 70px;") Select
+        
+
+block body_continue
+    script(src="/views/js/users.js").
