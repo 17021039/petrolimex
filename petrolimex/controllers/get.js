@@ -1,3 +1,4 @@
+const { resolve } = require('path');
 const { Sequelize, Op} = require('sequelize');
 const sequelize = require('../connect/connection.js');
 const models = require('../models/models.js');
@@ -55,7 +56,7 @@ module.exports.getToCreateTransaction = async (driverId_ = '') => {
             where: filter,
             include: [{model: dividedContracts, include: [{model: contracts, where: { status: 'active'}}]}]
         }).then(driver => JSON.parse(JSON.stringify(driver)))
-        .catch(() => {});
+        .catch(() => { return {}});
     } else
         return {};
 }
@@ -156,11 +157,11 @@ module.exports.getClients_Contracts = (clientId_ = '') => {
     return clients.findOne({
         where: fliter,
         include: {model: contracts, where: {status: 'active'}}
-    }).then(list => JSON.parse(JSON.stringify(list))).catch(() => {});
+    }).then(list => JSON.parse(JSON.stringify(list))).catch(() => { return {}});
 }
 
 module.exports.getToCreateDividedContract = async (clientId_, contractId_) => {
-
+    console.log(clientId_ + " " + contractId_);
     if(clientId_ && contractId_) {
         let drivers_ = drivers.findAll({
             where: {
@@ -179,9 +180,10 @@ module.exports.getToCreateDividedContract = async (clientId_, contractId_) => {
                         [Op.notIn]: list
                     },
                     status: 'active'
-                }
-            }).catch(() => []);
-        }).catch(() => []);
+                },
+                order: ['name']
+            }).then(drivers => JSON.parse(JSON.stringify(drivers))).catch(() => []);
+        }).then(result => result).catch(() => []);
 
         let contract_ = contracts.findOne({
             where: {
@@ -193,26 +195,72 @@ module.exports.getToCreateDividedContract = async (clientId_, contractId_) => {
                     [sequelize.literal('`debtCeiling` - (SELECT sum(`creditLimit` - `creditRemain`) FROM `divided_contracts` WHERE `contractId` = `contracts`.`contractId`)'), 'creditRemain']
                 ]
             },
+            order: Sequelize.literal('`dividedContracts.driver.name`'),
             include: [{model: dividedContracts, include: [{model: drivers, where: {status: 'active'}}]}]
         }).then(contract => JSON.parse(JSON.stringify(contract)))
         .then(contract => {
             contract.debtCeiling_remain = stringToNumber(contract.debtCeiling_remain);
             contract.creditRemain = stringToNumber(contract.creditRemain);
             return contract;
-        }).catch(() => {});
+        }).catch(() => { return {}});
 
-        return await Promise.all([drivers_, contract_]).then(resolve => {
+        return await Promise.all([drivers_, contract_]).then(resolve_ => {
+            console.log(JSON.stringify(resolve_[1],null,4));
             return {
-                drivers: resolve[0],
-                contract: resolve[1]
+                drivers: resolve_[0],
+                contract: resolve_[1]
             }
-        }).catch(() => {});
-    }
-        
+        }).catch((err) => {
+            console.log(err);
+            return {
+                drivers: [],
+                contract: {}
+            }
+        });
+    } 
 
-    
+    return {drivers: [], contract: {}};
+}
 
-    return {};
+module.exports.checkUpdateDividedContract = async (contractId_, update = [], insert = []) => {
+    let debtCeiling = contracts.findOne({
+        where: {
+            contractId: contractId_
+        },
+        attributes: ['debtCeiling']
+    }).then(contract => JSON.parse(JSON.stringify(contract)).debtCeiling).catch(() => 0);
+    let listCreditLimit = await dividedContracts.findAll({
+        where: {
+            contractId: contractId_
+        },
+        attributes: ['dividedContractId', 'CreditLimit']
+    }).then(listCreditLimit => JSON.parse(JSON.stringify(listCreditLimit)))
+    .catch(() => []);
+
+    return await Promise.all([debtCeiling, listCreditLimit]).then(resolve_ => {
+        listCreditLimit = resolve_[1];
+        update.map(element => {
+            if(element.creditLimit) {
+                for(let i = 0; i < listCreditLimit.length; i++) {
+                    if(element.dividedContractId.toString() === listCreditLimit[i].dividedContractId.toString()) {
+                        listCreditLimit[i].creditLimit = element.creditLimit;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        });
+        let sumCreditLimit = listCreditLimit.reduce((total, value) => {
+            return total + value.creditLimit;
+        }, 0);
+        sumCreditLimit += insert.reduce((total, value) => {
+            return total + value.creditLimit;
+        }, 0);
+        if(sumCreditLimit <= resolve_[0])
+            return true;
+        else
+            return false;
+    }).catch(() => flase);
 }
 
 //  =========================================================
@@ -232,7 +280,7 @@ module.exports.getDrivers = (driverId_ = '', clientId_ = '', userId_ = '', code_
     return drivers.findAll({
         where: filter,
         include: [{model: clients, attributes: ['name']}]
-    }).then(drivers => JSON.parse(JSON.stringify(drivers))).catch(() => {});
+    }).then(drivers => JSON.parse(JSON.stringify(drivers))).catch(() => { return {}});
 }
 
 //  =========================================================
@@ -307,7 +355,7 @@ module.exports.getUser = async (username_ = '', password_ = '') => {
                 exclude: ['username','password','roleId']
             },
             include: [{model: roles, attributes: ['permission']}]
-        }).then(user => JSON.parse(JSON.stringify(user))).catch(() => {});
+        }).then(user => JSON.parse(JSON.stringify(user))).catch(() => { return {}});
     }
 
     if(user) {
@@ -316,19 +364,19 @@ module.exports.getUser = async (username_ = '', password_ = '') => {
                 user.info = await this.getDrivers('','',user.userId,'','').then(result => {
                     delete result[0].userId;
                     return result[0];
-                }).catch(() => {});
+                }).catch(() => { return {}});
                 break;
             case 'client':
                 user.info = await this.getClients('',user.userId,'','').then(result => {
                     delete result[0].userId;
                     return result[0];
-                }).catch(() => {});
+                }).catch(() => { return {}});
                 break;
             case 'gasStation':
                 user.info = await this.getGasStations('',user.userId,'').then(result => {
                     delete result[0].userId;
                     return result[0];
-                }).catch(() => {});
+                }).catch(() => { return {}});
         }
         // user.userId = undefined;
         return user;

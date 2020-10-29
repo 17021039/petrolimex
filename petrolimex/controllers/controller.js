@@ -20,7 +20,25 @@ function writeFile(link_, method_, request_, response_) {
 }
 
 //  =========================================================
+/* module.exports.timeOut = (req,res,next) => {
+    let i = 1;
+    let interval = setInterval(() => {
+        i++;
+    }, 1000);
+    setTimeout(() => {
+        res.render('main', {
+            messenger: 'Time out: ' + i.toString() + 's'
+        })
+    }, 1000);
+    next();
+} */
+
 module.exports.show = (req,res) => {
+    // setTimeout(() => {
+    //     res.render('main', {
+    //         messenger: 'Active'
+    //     })
+    // }, 5000);
     res.render('main', {
         messenger: 'Hello World'
     })
@@ -464,10 +482,22 @@ module.exports.getToCreateDividedContract = async (req,res) => {
 
 module.exports.createDividedContract = async (req,res) => {
     console.log(req.body);
-    let status = {};
-    status.insert = await create.createDividedContracts(req.body.insert);
-    status.update = await update.updateDividedContracts(req.body.update);
-
+    let status = {update: false, insert: false};
+    await get.checkUpdateDividedContract(req.body.contractId, req.body.update, req.body.insert)
+    .then(result => {
+        if(result) {
+            let insert_ = create.createDividedContracts(req.body.insert);
+            let update_ = update.updateDividedContracts(req.body.update);
+            return Promise.all([update_, insert_]).then(resolve_ => {
+                status.update = resolve[0];
+                status.insert = resolve[1];
+                return true;
+            }).catch(() => false);
+        }
+        else
+            return false;
+    }).then(result => result).catch(() => false);
+    
     // writeFile("/createDividedContract", "POST", req.body, {status: status});
     res.send({status: status});
 }

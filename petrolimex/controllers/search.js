@@ -1,4 +1,3 @@
-const { resolve } = require('path');
 const { Sequelize, Op, QueryTypes} = require('sequelize');
 const sequelize = require('../connect/connection.js');
 const models = require('../models/models.js');
@@ -75,14 +74,14 @@ module.exports.reportCreditDriver = async (driverId_, startDate_ = '', finalDate
             driverId: driverId_
         },
         attributes: ['driverId', 'code', 'name']
-    }).then(result => JSON.parse(JSON.stringify(result))).catch(() => {});
+    }).then(result => JSON.parse(JSON.stringify(result))).catch(() => { return {}});
 
-    return await Promise.all([creditDrivers, driver]).then((resolve) => {
+    return await Promise.all([creditDrivers, driver]).then((resolve_) => {
         return {
-            driver: resolve[1],
-            creditDrivers: resolve[0]
+            driver: resolve_[1],
+            creditDrivers: resolve_[0]
         }
-    }).catch(() => {});
+    }).catch(() => { return {}});
 }
 
 module.exports.reportCreditClient = async (clientId_, startDate_ = '', finalDate_ = '') => {
@@ -124,7 +123,7 @@ module.exports.reportCreditClient = async (clientId_, startDate_ = '', finalDate
     .then(client => {
         client.debtCeiling_remain = stringToNumber(client.debtCeiling_remain);
         return client;
-    }).catch(() => {});
+    }).catch(() => { return {}});
 
     let contract =  contracts.findAll({
         where: filter_contract,
@@ -144,12 +143,12 @@ module.exports.reportCreditClient = async (clientId_, startDate_ = '', finalDate
         return obj;
     })).catch(() => []);
     
-    return await Promise.all([client, contract]).then(resolve => {
+    return await Promise.all([client, contract]).then(resolve_ => {
         return {
-            client: resolve[0],
-            contracts: resolve[1],
+            client: resolve_[0],
+            contracts: resolve_[1],
         }
-    }).catch(() => {});
+    }).catch(() => { return {}});
 
 }
 

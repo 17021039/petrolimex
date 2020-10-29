@@ -1,5 +1,4 @@
 const { Sequelize, Op, QueryTypes} = require('sequelize');
-const sequelize = require('../connect/connection.js');
 const models = require('../models/models.js');
 const bills = models.bills();
 const clients = models.clients();
@@ -11,6 +10,7 @@ const products = models.products();
 const roles = models.roles();
 const users = models.users();
 const object = require('../models/object.js');
+const get = require('./get.js');
 
 const fs = require('fs');
 
@@ -54,7 +54,7 @@ module.exports.updateDriver = async (driverId_, code_, name_, residentId_, plate
             driverId: driverId_
         },
         attributes: Object.keys(driver).push('clientId')
-    }).then(driver => JSON.parse(JSON.stringify(driver))).catch(() => {});
+    }).then(driver => JSON.parse(JSON.stringify(driver))).catch(() => { return {}});
     return await drivers.update(driver,
         {
             where: {
@@ -115,7 +115,7 @@ module.exports.updateContract = async (contractId_, name_, destroy_ = false) => 
         }).then(() => true)
         .catch(() => false));
     listUpdate.push(this.destroyContract(contractId_, destroy_));
-    return await Promise.all (listUpdate).then((resolve) => resolve.indexOf(false) !== -1 ? false : true).catch(() => false);
+    return await Promise.all (listUpdate).then((resolve_) => resolve_.indexOf(false) !== -1 ? false : true).catch(() => false);
 }
 
 module.exports.updateDividedContract = async (dividedContractId_, code_, creditLimit_, creditRemain_, max_transaction_) => {
@@ -125,12 +125,15 @@ module.exports.updateDividedContract = async (dividedContractId_, code_, creditL
         where: {
             dividedContractId: dividedContractId_
         },
-        attributes: ['creditLimit', 'creditRemain', 'max_transaction']
+        attributes: ['creditLimit', 'creditRemain', 'max_transaction', 'contractId']
     }).then(data => JSON.parse(JSON.stringify(data)))
-    .catch(() => {});
+    .catch(() => { return {}});
 
     if(creditLimit_ && creditLimit_ !== previousData.creditLimit) {
         if((previousData.creditLimit - previousData.creditRemain) > creditLimit_)
+            return false;
+        let check = await get.checkUpdateDividedContract(previousData.contractId, [{dividedContractId: dividedContractId_, creditLimit: creditLimit_}])
+        if(check === false)
             return false;
         update = {
             creditRemain: Sequelize.literal(creditLimit_.toString() + ' - (`creditLimit` - `creditRemain`)'),
@@ -152,11 +155,21 @@ module.exports.updateDividedContract = async (dividedContractId_, code_, creditL
 }
 
 module.exports.updateDividedContracts = async (dividedContracts_ = []) => {
+    if(dividedContracts_.length === 0)
+        return true;
     for(let element of dividedContracts_) {
         if(object.containKeys('dividedContract', Object.keys(element)) === false)
             return false;
     }
-
+    let contractId = await dividedContracts.findOne({
+        where: {
+            dividedContractId: dividedContracts_[0].dividedContractId
+        },
+        attributes: ['contractId']
+    }).then(result => JSON.parse(JSON.stringify(result)).contractId).catch(() => -1);
+    let check = await get.checkUpdateDividedContract(contractId, dividedContracts_);
+    if(check === false)
+        return false;
     let previousDatas = [];
     let listUpdate = [];
     for(let element of dividedContracts_) {
@@ -167,7 +180,7 @@ module.exports.updateDividedContracts = async (dividedContracts_ = []) => {
             },
             attributes: ['dividedContractId','creditLimit', 'creditRemain', 'max_transaction']
         }).then(data => JSON.parse(JSON.stringify(data)))
-        .catch(() => {});
+        .catch(() => { return {}});
         previousDatas.push(previousData);
 
         if(element.creditLimit && element.creditLimit !== previousData.creditLimit) {
@@ -190,8 +203,8 @@ module.exports.updateDividedContracts = async (dividedContracts_ = []) => {
             }).then(() => true).catch(() => false));
     }
 
-    return Promise.all(listUpdate).then(resolve => {
-        if(resolve.indexOf(false) !== -1) {
+    return Promise.all(listUpdate).then(resolve_ => {
+        if(resolve_.indexOf(false) !== -1) {
             let promises = [];
             for(let previousData of previousDatas) {
                 promises.push(dividedContracts.update(previousData,
